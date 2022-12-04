@@ -1,5 +1,6 @@
 package com.javarush.hibernate_project.model;
 
+import com.javarush.hibernate_project.enums.TaskPriority;
 import com.javarush.hibernate_project.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,6 +33,10 @@ public class Task {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
+
+    @Column(name = "priority", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
 
     @Column(name = "user_id")
     private Long userId;

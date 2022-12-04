@@ -31,11 +31,11 @@ public class UserSignUpServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         UserCommand userCommand = buildUserCommand(req);
         userService.createUser(userCommand);
         putUsernameToCurrentSession(req, userCommand);
-        resp.sendRedirect("/table");
+        resp.sendRedirect("/hibernate_project_war_exploded/table-task");
     }
 
     private UserCommand buildUserCommand(HttpServletRequest req) {

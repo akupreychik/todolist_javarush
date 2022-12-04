@@ -1,7 +1,7 @@
 package com.javarush.hibernate_project.middleware;
 
 import com.javarush.hibernate_project.command.TaskCommand;
-import com.javarush.hibernate_project.command.abstracts.AbstractCommand;
+import com.javarush.hibernate_project.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,15 +16,14 @@ public class TaskMiddleware extends Middleware {
 
 
     @Override
-    public boolean check(AbstractCommand command) {
+    public boolean check(Command command) {
         TaskCommand taskCommand = (TaskCommand) command;
-        /*if (taskCommand.getTitle().matches(NAME_REGEX)
+        if (taskCommand.getTitle().matches(NAME_REGEX)
                 && taskCommand.getDescription().matches(DESCRIPTION_REGEX)) {
             return checkNext(command);
         }
         logger.error(NAME_ERROR_MESSAGE);
-        return false;*/
-        return checkNext(command);
+        return false;
     }
 
 }

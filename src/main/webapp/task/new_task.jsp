@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>New task</title>
@@ -31,9 +32,9 @@
         <div class="mb-3">
             <label for="taskStatus" class="form-label">Status</label>
             <select class="form-select" aria-label="Default select example" id="taskStatus" name="taskStatus">
-                <option selected>Open</option>
-                <option value="1">In progress</option>
-                <option value="2">Done</option>
+                <c:forEach items="${statuses}" var="status">
+                    <option value="${status.status}">${status.status}</option>
+                </c:forEach>
             </select>
         </div>
 
@@ -41,9 +42,9 @@
             <label for="taskPriority" class="form-label">Priority</label>
             <select class="form-select" aria-label="Default select example" id="taskPriority"
                     name="taskPriority">
-                <option selected>Low</option>
-                <option value="1">Medium</option>
-                <option value="2">High</option>
+                <c:forEach items="${priorities}" var="priority">
+                    <option value="${priority.priority}">${priority.priority}</option>
+                </c:forEach>
             </select>
         </div>
 
@@ -60,6 +61,15 @@
         <div class="mb-3">
             <label for="formFile" class="form-label">Add file</label>
             <input class="form-control" type="file" id="formFile">
+        </div>
+
+        <div class="mb-3">
+            <label class="select-tags">Choose tags</label>
+            <select multiple class="form-select" id="select-tags" aria-label="multiple select example" name="taskTags">
+                <c:forEach items="${tags}" var="tag">
+                    <option style="background-color: ${tag.color}" value="${tag.id}">${tag.name}</option>
+                </c:forEach>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

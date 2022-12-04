@@ -92,7 +92,7 @@
                 <div class="h-100 p-5 text-bg-light border bg-light">
                     <h2>Lets create your first Task</h2>
                     <p>Create new account and start creating your tasks</p>
-                    <button class="btn btn-outline-dark" type="button" onclick="window.location.href='/user-sign-up'">
+                    <button class="btn btn-outline-dark" type="button" onclick="location.href='user-sign-up'">
                         Register
                     </button>
                 </div>
@@ -101,7 +101,9 @@
                 <div class="h-100 p-5 bg-light border rounded-3">
                     <h2>Open my ToDo List</h2>
                     <p>If you already have an account, you can open your ToDo List and start working on your tasks</p>
-                    <button class="btn btn-outline-secondary" type="button">Open my board</button>
+                    <button class="btn btn-outline-secondary" type="button" onclick="location.href='table-task'" >
+                        Open my board
+                    </button>
                 </div>
             </div>
         </div>

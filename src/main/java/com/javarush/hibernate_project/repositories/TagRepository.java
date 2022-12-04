@@ -6,8 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class TagRepository {
 
@@ -70,6 +69,15 @@ public class TagRepository {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public Set<Tag> findTagsByIds(Collection<Long> ids) {
+        try (Session session = sessionFactory.openSession()) {
+            return new HashSet<>(session.createQuery("from Tag where id in :ids", Tag.class)
+                    .setParameter("ids", ids)
+                    .list());
+        } catch (Exception e) {
+            return Set.of();
+        }
     }
 }

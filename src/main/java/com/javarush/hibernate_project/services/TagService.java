@@ -4,6 +4,7 @@ import com.javarush.hibernate_project.command.TagCommand;
 import com.javarush.hibernate_project.dto.TagDTO;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TagService {
     void save(TagCommand tagCommand);
@@ -15,4 +16,6 @@ public interface TagService {
     TagDTO getByName(String name);
 
     List<TagDTO> getAll();
+
+    Set<TagDTO> getTagsByIds(Set<Long> ids);
 }

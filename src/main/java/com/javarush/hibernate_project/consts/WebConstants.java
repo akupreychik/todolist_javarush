@@ -8,6 +8,11 @@ public class WebConstants {
 
 
     public static final String USER_ATTRIBUTE = "user";
+
+    public static final String STATUSES = "statuses";
+    public static final String PRIORITIES = "priorities";
+    public static final String TAGS = "tags";
+
     private WebConstants() {
     }
 }

@@ -1,7 +1,6 @@
 package com.javarush.hibernate_project.servlets.task;
 
 import com.javarush.hibernate_project.dto.TaskDTO;
-import com.javarush.hibernate_project.model.Task;
 import com.javarush.hibernate_project.services.TaskService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
@@ -28,7 +27,7 @@ public class TaskInformation extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         TaskDTO task = taskService.getTaskById(id);
     }

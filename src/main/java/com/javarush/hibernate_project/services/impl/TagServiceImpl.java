@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TagServiceImpl implements TagService {
@@ -58,5 +59,13 @@ public class TagServiceImpl implements TagService {
                 .stream()
                 .map(tagMapper::mapToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Set<TagDTO> getTagsByIds(Set<Long> ids) {
+        return tagRepository.findTagsByIds(ids)
+                .stream()
+                .map(tagMapper::mapToDTO)
+                .collect(Collectors.toSet());
     }
 }

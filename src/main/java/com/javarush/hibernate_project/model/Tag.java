@@ -1,6 +1,5 @@
 package com.javarush.hibernate_project.model;
 
-import com.javarush.hibernate_project.enums.TagColor;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -12,7 +11,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Tag {
 
     @Id
@@ -24,8 +25,7 @@ public class Tag {
     private String name;
 
     @Column(name = "color", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TagColor color;
+    private String color;
 
     @Override
     public boolean equals(Object o) {

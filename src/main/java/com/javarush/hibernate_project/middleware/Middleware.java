@@ -1,6 +1,6 @@
 package com.javarush.hibernate_project.middleware;
 
-import com.javarush.hibernate_project.command.abstracts.AbstractCommand;
+import com.javarush.hibernate_project.command.Command;
 
 public abstract class Middleware {
     private Middleware next;
@@ -14,9 +14,9 @@ public abstract class Middleware {
         return first;
     }
 
-    public abstract boolean check(AbstractCommand command);
+    public abstract boolean check(Command command);
 
-    protected boolean checkNext(AbstractCommand command) {
+    protected boolean checkNext(Command command) {
         if (next == null) {
             return true;
         }

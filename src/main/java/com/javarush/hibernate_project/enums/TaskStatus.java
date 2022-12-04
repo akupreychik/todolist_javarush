@@ -1,7 +1,6 @@
 package com.javarush.hibernate_project.enums;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;

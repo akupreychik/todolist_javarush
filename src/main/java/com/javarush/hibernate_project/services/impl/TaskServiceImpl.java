@@ -8,6 +8,7 @@ import com.javarush.hibernate_project.exceptions.CreatingEntityException;
 import com.javarush.hibernate_project.mapper.TaskMapper;
 import com.javarush.hibernate_project.middleware.Middleware;
 import com.javarush.hibernate_project.middleware.TaskMiddleware;
+import com.javarush.hibernate_project.model.Tag;
 import com.javarush.hibernate_project.model.Task;
 import com.javarush.hibernate_project.repositories.TaskRepository;
 import com.javarush.hibernate_project.services.TaskService;
@@ -15,6 +16,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TaskServiceImpl implements TaskService {
     private static final String TASK_SAVED = "Task saved";
@@ -37,6 +40,8 @@ public class TaskServiceImpl implements TaskService {
     public void save(TaskCommand taskCommand) throws CreatingEntityException {
         try {
             if (middleware.check(taskCommand)) {
+                Task task = taskMapper.mapToEntity(taskCommand);
+                addTagsToTask(taskCommand, task);
                 taskRepository.save(taskMapper.mapToEntity(taskCommand));
                 logger.info(TASK_SAVED);
             }
@@ -59,5 +64,26 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskPriority> getAllPriorities() {
         return TaskPriority.getAll();
+    }
+
+    @Override
+    public List<TaskDTO> findTasksByUserId(Long id) {
+        return taskRepository.findAllByUserId(id)
+                .stream()
+                .map(taskMapper::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private void addTagsToTask(TaskCommand taskCommand, Task task) {
+        if (taskCommand.getTags() != null) {
+            Set<Tag> tags = taskCommand.getTags()
+                    .stream()
+                    .map(tag -> Tag.builder()
+                            .name(tag.getName())
+                            .color(tag.getColor())
+                            .build())
+                    .collect(Collectors.toSet());
+            task.setTags(tags);
+        }
     }
 }

@@ -15,4 +15,6 @@ public interface TaskService {
     List<TaskStatus> getAllStatuses();
 
     List<TaskPriority> getAllPriorities();
+
+    List<TaskDTO> findTasksByUserId(Long id);
 }

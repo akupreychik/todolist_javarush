@@ -3,6 +3,7 @@ package com.javarush.hibernate_project.servlets.task;
 import com.javarush.hibernate_project.command.TaskCommand;
 import com.javarush.hibernate_project.enums.TaskPriority;
 import com.javarush.hibernate_project.enums.TaskStatus;
+import com.javarush.hibernate_project.services.TagService;
 import com.javarush.hibernate_project.services.TaskService;
 import com.javarush.hibernate_project.services.UserService;
 import jakarta.servlet.ServletConfig;
@@ -15,15 +16,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import static com.javarush.hibernate_project.consts.WebConstants.TASK_SERVICE;
-import static com.javarush.hibernate_project.consts.WebConstants.USER_SERVICE;
+import static com.javarush.hibernate_project.consts.WebConstants.*;
 
 @WebServlet(name = "newTaskServlet", value = "/new-task")
 public class NewTaskServlet extends HttpServlet {
 
     private TaskService taskService;
     private UserService userService;
+    private TagService tagService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -31,26 +35,24 @@ public class NewTaskServlet extends HttpServlet {
         ServletContext context = config.getServletContext();
         taskService = (TaskService) context.getAttribute(TASK_SERVICE);
         userService = (UserService) context.getAttribute(USER_SERVICE);
+        tagService = (TagService) context.getAttribute(TAG_SERVICE);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("statuses", taskService.getAllStatuses());
-        req.setAttribute("priorities", taskService.getAllPriorities());
+        addAttributes(req);
         req.getRequestDispatcher("/task/new_task.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = (String) req.getSession().getAttribute("user");
         if (ObjectUtils.anyNull(username)) {
-            //resp.sendRedirect("/login");
-            //return;
-            username = "yqpuss";
+            resp.sendRedirect("/hibernate_project_war_exploded/login");
         }
         TaskCommand taskCommand = buildTaskCommand(req, username);
         taskService.save(taskCommand);
-        resp.sendRedirect("/table");
+        resp.sendRedirect("/hibernate_project_war_exploded/table");
     }
 
     private TaskCommand buildTaskCommand(HttpServletRequest req, String username) {
@@ -62,6 +64,19 @@ public class NewTaskServlet extends HttpServlet {
                 .userId(userService.getUserByUsername(username).getId())
                 .hours(Integer.parseInt(req.getParameter("taskHours")))
                 .text(req.getParameter("taskText"))
+                .tags(tagService.getTagsByIds(convertTagsIds(req.getParameterValues("taskTags"))))
                 .build();
+    }
+
+    private Set<Long> convertTagsIds(String[] tags) {
+        return Arrays.stream(tags)
+                .map(Long::parseLong)
+                .collect(Collectors.toSet());
+    }
+
+    private void addAttributes(HttpServletRequest req) {
+        req.setAttribute(STATUSES, taskService.getAllStatuses());
+        req.setAttribute(PRIORITIES, taskService.getAllPriorities());
+        req.setAttribute(TAGS, tagService.getAll());
     }
 }

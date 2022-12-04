@@ -1,6 +1,6 @@
 package com.javarush.hibernate_project.command;
 
-import com.javarush.hibernate_project.command.abstracts.AbstractCommand;
+import com.javarush.hibernate_project.dto.TagDTO;
 import com.javarush.hibernate_project.enums.TaskPriority;
 import com.javarush.hibernate_project.enums.TaskStatus;
 import lombok.*;
@@ -11,14 +11,13 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class TaskCommand extends AbstractCommand {
+public class TaskCommand implements Command {
     private String title;
     private String description;
     private TaskStatus status;
     private TaskPriority priority;
     private Integer hours;
     private String text;
-    private Set<TagCommand> tags;
+    private Set<TagDTO> tags;
     private Long userId;
 }
