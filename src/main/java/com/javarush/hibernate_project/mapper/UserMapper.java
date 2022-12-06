@@ -15,4 +15,6 @@ public interface UserMapper {
 
     UserDTO mapToDTO(User user);
 
+    User mapToEntity(UserDTO userDTO);
+
 }

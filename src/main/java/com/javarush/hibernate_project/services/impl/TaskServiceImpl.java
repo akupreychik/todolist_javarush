@@ -74,6 +74,11 @@ public class TaskServiceImpl implements TaskService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteTaskById(Long id) {
+        taskRepository.deleteTaskById(id);
+    }
+
     private void addTagsToTask(TaskCommand taskCommand, Task task) {
         if (taskCommand.getTags() != null) {
             Set<Tag> tags = taskCommand.getTags()

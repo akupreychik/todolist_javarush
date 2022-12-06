@@ -51,6 +51,9 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+    </script>
 
 </div>
 </body>

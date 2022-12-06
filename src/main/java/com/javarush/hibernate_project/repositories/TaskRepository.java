@@ -25,6 +25,18 @@ public class TaskRepository {
         }
     }
 
+    public void deleteTaskById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.createQuery("delete from Task t where t.id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void delete(Task task) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

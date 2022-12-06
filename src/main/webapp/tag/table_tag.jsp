@@ -40,6 +40,9 @@
         </tbody>
     </table>
     <button type="button" class="btn btn-primary" onclick="location.href='new-tag'">Add tag</button>
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+    </script>
 </div>
 </body>
 </html>

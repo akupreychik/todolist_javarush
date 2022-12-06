@@ -1,6 +1,7 @@
 package com.javarush.hibernate_project.provider;
 
 import com.javarush.hibernate_project.model.Tag;
+import com.javarush.hibernate_project.model.TaskComment;
 import com.javarush.hibernate_project.model.Task;
 import com.javarush.hibernate_project.model.User;
 import org.hibernate.SessionFactory;
@@ -27,6 +28,7 @@ public class Provider implements SessionProvider {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Task.class)
                 .addAnnotatedClass(Tag.class)
+                .addAnnotatedClass(TaskComment.class)
                 .buildSessionFactory();
     }
 }

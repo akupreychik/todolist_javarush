@@ -48,8 +48,8 @@
                     </c:forEach>
                 </td>
                 <td>
-                    <a href="editTask?id=${task.id}">Edit</a>
-                    <a href="deleteTask?id=${task.id}">Delete</a>
+                    <a href="editTask?id=${task.id}&action=edit">Edit</a>
+                    <a href="task?id=${task.id}&action=DELETE">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -67,6 +67,9 @@
             <a onclick="location.href='new-task'" class="btn btn-primary">Add new task</a>
         </div>
     </div>
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+    </script>
 </div>
 </body>
 </html>

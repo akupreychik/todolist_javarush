@@ -72,9 +72,16 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <button type="button" onclick="location.href='new-tag'" class="btn btn-primary">Add new tag</button>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+    </script>
 </div>
-</div>
+
 </body>
 </html>

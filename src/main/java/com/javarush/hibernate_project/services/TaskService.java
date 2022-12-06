@@ -17,4 +17,6 @@ public interface TaskService {
     List<TaskPriority> getAllPriorities();
 
     List<TaskDTO> findTasksByUserId(Long id);
+
+    void deleteTaskById(Long id);
 }

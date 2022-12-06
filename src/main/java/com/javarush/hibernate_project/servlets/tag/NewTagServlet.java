@@ -33,11 +33,15 @@ public class NewTagServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
-        TagCommand tagCommand = TagCommand.builder()
+        TagCommand tagCommand = buildTagCommand(req);
+        tagService.save(tagCommand);
+        resp.sendRedirect("/hibernate_project_war_exploded/table-tag");
+    }
+
+    private static TagCommand buildTagCommand(HttpServletRequest req) {
+        return TagCommand.builder()
                 .name(req.getParameter("tagName"))
                 .color(req.getParameter("favcolor"))
                 .build();
-        tagService.save(tagCommand);
-        resp.sendRedirect("/hibernate_project_war_exploded/table-tag");
     }
 }

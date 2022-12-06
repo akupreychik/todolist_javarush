@@ -4,12 +4,15 @@ import com.javarush.hibernate_project.components.PasswordHashing;
 import com.javarush.hibernate_project.provider.Provider;
 import com.javarush.hibernate_project.provider.SessionProvider;
 import com.javarush.hibernate_project.repositories.TagRepository;
+import com.javarush.hibernate_project.repositories.TaskCommentRepository;
 import com.javarush.hibernate_project.repositories.TaskRepository;
 import com.javarush.hibernate_project.repositories.UserRepository;
 import com.javarush.hibernate_project.services.TagService;
+import com.javarush.hibernate_project.services.TaskCommentService;
 import com.javarush.hibernate_project.services.TaskService;
 import com.javarush.hibernate_project.services.UserService;
 import com.javarush.hibernate_project.services.impl.TagServiceImpl;
+import com.javarush.hibernate_project.services.impl.TaskCommentServiceImpl;
 import com.javarush.hibernate_project.services.impl.TaskServiceImpl;
 import com.javarush.hibernate_project.services.impl.UserServiceImpl;
 import jakarta.servlet.ServletContext;
@@ -37,14 +40,17 @@ public class AppContextListener implements ServletContextListener {
         UserRepository userRepository = new UserRepository(sessionProvider.getSessionFactory());
         TaskRepository taskRepository = new TaskRepository(sessionProvider.getSessionFactory());
         TagRepository tagRepository = new TagRepository(sessionProvider.getSessionFactory());
+        TaskCommentRepository taskCommentRepository = new TaskCommentRepository(sessionProvider.getSessionFactory());
 
         UserService userService = new UserServiceImpl(userRepository, passwordHashing);
         TaskService taskService = new TaskServiceImpl(taskRepository);
         TagService tagService = new TagServiceImpl(tagRepository);
+        TaskCommentService taskCommentService = new TaskCommentServiceImpl(taskCommentRepository, taskService, userService);
 
         context.setAttribute(USER_SERVICE, userService);
         context.setAttribute(TASK_SERVICE, taskService);
         context.setAttribute(TAG_SERVICE, tagService);
+        context.setAttribute(TASK_COMMENT_SERVICE, taskCommentService);
         logger.info(CONTEXT_INITIALIZED);
     }
 

@@ -25,12 +25,15 @@
             <br>
             <input type="color" id="favcolor" name="favcolor" value="#ff0000">
 
-
             <br>
             <br>
             <button type="submit" class="btn btn-success">Submit</button>
         </div>
     </form>
+    <button type="button" class="btn btn-primary" onclick="location.href='table-tag'">All tags</button>
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+    </script>
 </div>
 </body>
 </html>

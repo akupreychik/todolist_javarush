@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.javarush.hibernate_project.consts.WebConstants.*;
 
-@WebServlet(name = "newTaskServlet", value = "/table-task")
+@WebServlet(name = "tableTaskServlet", value = "/table-task")
 public class TableTaskServlet extends HttpServlet {
 
     private TaskService taskService;
@@ -34,7 +34,7 @@ public class TableTaskServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String currentUser = getUserNameFromSession(req);
-        UserDTO user = userService.getUserByUsername(currentUser);
+        UserDTO user = userService.getUserByUsername("yqpuss");
         List<TaskDTO> tasks = taskService.findTasksByUserId(user.getId());
         req.setAttribute("username", currentUser);
         req.setAttribute("tasks", tasks);

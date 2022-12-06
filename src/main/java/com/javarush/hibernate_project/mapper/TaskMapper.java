@@ -14,4 +14,6 @@ public interface TaskMapper {
     Task mapToEntity(TaskCommand taskCommand);
 
     TaskDTO mapToDTO(Task task);
+
+    Task mapToEntity(TaskDTO taskDTO);
 }

@@ -12,5 +12,7 @@ public class TaskDTO {
     private String status;
     private String priority;
     private Integer hours;
+    private String text;
     private List<TagDTO> tags;
+    private List<TaskCommentDTO> comments;
 }

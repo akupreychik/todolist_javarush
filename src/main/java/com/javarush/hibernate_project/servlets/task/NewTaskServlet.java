@@ -46,13 +46,14 @@ public class NewTaskServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = (String) req.getSession().getAttribute("user");
+        //String username = (String) req.getSession().getAttribute("user");
+        String username = "yqpuss";
         if (ObjectUtils.anyNull(username)) {
             resp.sendRedirect("/hibernate_project_war_exploded/login");
         }
         TaskCommand taskCommand = buildTaskCommand(req, username);
         taskService.save(taskCommand);
-        resp.sendRedirect("/hibernate_project_war_exploded/table");
+        resp.sendRedirect("/hibernate_project_war_exploded/table-task");
     }
 
     private TaskCommand buildTaskCommand(HttpServletRequest req, String username) {

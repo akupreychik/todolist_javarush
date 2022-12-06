@@ -65,6 +65,9 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
+    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
+    private Set<TaskComment> comments;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
